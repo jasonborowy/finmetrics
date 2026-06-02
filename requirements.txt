@@ -1,0 +1,31 @@
+# FinMetrics Python Dependencies
+# =================================
+# Install: pip install -r requirements.txt
+
+# Core data pipeline
+pandas>=2.0.0
+requests>=2.31.0
+tenacity>=8.2.0       # retry logic with exponential backoff
+
+# Database
+psycopg2-binary>=2.9.0   # PostgreSQL adapter
+sqlalchemy>=2.0.0         # ORM and connection management
+
+# API
+fastapi>=0.104.0
+uvicorn>=0.24.0
+pydantic>=2.0.0
+
+# Environment
+python-dotenv>=1.0.0
+
+# Development and testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+httpx>=0.25.0           # for FastAPI test client
+
+# Optional: XBRL parsing (used for ESMA/EDINET — Phase 3)
+# arelle-release>=2.0.0
+
+# Optional: async HTTP (for higher-throughput pipeline — Phase 3)
+# aiohttp>=3.9.0
