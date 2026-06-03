@@ -58,7 +58,7 @@ CANONICAL_TAG_SEED: dict[str, dict[str, list[str]]] = {
     },
     "CommonSharesOutstanding": {
         "us-gaap":   ["CommonStockSharesOutstanding"],
-        "ifrs-full": ["NumberOfSharesOutstanding", "OrdinarySharesOutstanding"],
+        "ifrs-full": ["NumberOfSharesOutstanding", "OrdinarySharesOutstanding", "NumberOfSharesIssuedAndFullyPaid"],
         "jpcrp":     ["NumberOfSharesIssued"],
     },
     "RDExpense": {
@@ -69,7 +69,9 @@ CANONICAL_TAG_SEED: dict[str, dict[str, list[str]]] = {
     },
     "SGAExpense": {
         "us-gaap":   ["SellingGeneralAndAdministrativeExpense"],
-        "ifrs-full": ["SellingGeneralAndAdministrativeExpense"],
+        "ifrs-full": ["SellingGeneralAndAdministrativeExpense",
+                      "GeneralAndAdministrativeExpense",
+                  "SalesAndMarketingExpense"],
         "jpcrp":     ["SellingExpenses", "GeneralAndAdministrativeExpense"],  # sum these
     },
 
@@ -111,7 +113,9 @@ CANONICAL_TAG_SEED: dict[str, dict[str, list[str]]] = {
                       "DepreciationAmortizationAndAccretionNet",
                       "Depreciation"],
         "ifrs-full": ["DepreciationAndAmortisationExpense",
-                      "DepreciationAmortisationAndImpairmentLoss"],
+                      "DepreciationAmortisationAndImpairmentLoss",
+                      "DepreciationExpense",
+                        "AmortisationExpense"],
         "jpcrp":     ["Depreciation", "DepreciationAndAmortization"],
     },
     "Cash": {
@@ -140,7 +144,7 @@ CANONICAL_TAG_SEED: dict[str, dict[str, list[str]]] = {
     },
     "OperatingExpenses": {
         "us-gaap":   ["OperatingExpenses", "CostsAndExpenses"],
-        "ifrs-full": ["OperatingExpense"],
+        "ifrs-full": ["OperatingExpense", "OperatingExpenseExcludingCostOfSales"],
         "jpcrp":     ["OperatingExpenses"],
     },
 
@@ -158,7 +162,7 @@ CANONICAL_TAG_SEED: dict[str, dict[str, list[str]]] = {
     },
     "RawMaterialsInventory": {
         "us-gaap":   ["InventoryRawMaterials", "InventoryRawMaterialsNetOfReserves"],
-        "ifrs-full": ["RawMaterialsAndConsumables"],
+        "ifrs-full": ["RawMaterialsAndConsumables", "RawMaterials"],
         "jpcrp":     ["RawMaterials"],
     },
     "WIPInventory": {
@@ -168,12 +172,12 @@ CANONICAL_TAG_SEED: dict[str, dict[str, list[str]]] = {
     },
     "AccountsReceivable": {
         "us-gaap":   ["AccountsReceivableNetCurrent", "ReceivablesNetCurrent"],
-        "ifrs-full": ["TradeAndOtherCurrentReceivables", "TradeReceivablesCurrent"],
+        "ifrs-full": ["TradeAndOtherCurrentReceivables", "TradeReceivablesCurrent", "CurrentTradeReceivables"],
         "jpcrp":     ["NotesAndAccountsReceivableTrade"],
     },
     "AccountsPayable": {
         "us-gaap":   ["AccountsPayableCurrent"],
-        "ifrs-full": ["TradeAndOtherCurrentPayables", "TradeAndOtherPayablesCurrent"],
+        "ifrs-full": ["TradeAndOtherCurrentPayables", "TradeAndOtherPayablesCurrent", "TradeAndOtherCurrentPayablesToTradeSuppliers"],
         "jpcrp":     ["NotesAndAccountsPayableTrade"],
     },
 
@@ -200,7 +204,8 @@ CANONICAL_TAG_SEED: dict[str, dict[str, list[str]]] = {
     },
     "LongTermDebt": {
         "us-gaap":   ["LongTermDebt", "LongTermDebtNoncurrent"],
-        "ifrs-full": ["NoncurrentPortionOfLongTermBorrowings", "LongTermBorrowings"],
+        "ifrs-full": ["NoncurrentPortionOfLongTermBorrowings", "LongTermBorrowings",
+                      "LongtermBorrowings", "NoncurrentPortionOfNoncurrentBondsIssued"],
         "jpcrp":     ["LongTermLoansPayable", "BondsPayable"],
     },
     "ShortTermDebt": {

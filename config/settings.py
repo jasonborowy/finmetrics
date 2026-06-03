@@ -73,7 +73,7 @@ class EdgarConfig:
     submissions_url: str = "https://data.sec.gov/submissions"
     facts_url:      str = "https://data.sec.gov/api/xbrl/companyfacts"
     concept_url:    str = "https://data.sec.gov/api/xbrl/companyconcept"
-    tickers_url:    str = "https://data.sec.gov/submissions/company_tickers.json"
+    tickers_url:    str = "https://sec.gov/files/company_tickers.json"
     rss_url:        str = "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=10-K&dateb=&owner=include&count=40&search_text=&output=atom"
 
     # Rate limiting — 10 req/sec max; target 8/sec
