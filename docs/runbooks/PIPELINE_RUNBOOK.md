@@ -60,15 +60,52 @@ psql -d finmetrics_db -f database/schema/001_core.sql
 psql -d finmetrics_db -f database/schema/002_indexes.sql
 ```
 
-### 5. Seed company registry
+### 5. Grant table permissions
+```bash
+psql -U postgres -d finmetrics_db -c "GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO finmetrics;"
+psql -U postgres -d finmetrics_db -c "GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO finmetrics;"
+```
+
+### 6. Seed company registry
 ```bash
 python scripts/seed_companies.py
 ```
 
-### 6. Verify schema
+### 7. Verify schema
 ```bash
 python scripts/verify_schema.py
 ```
+
+---
+
+## Windows (Git Bash) Setup Notes
+
+These issues were encountered on first setup (2026-06-02) and are documented here to prevent repeat debugging.
+
+**PATH does not persist across Git Bash sessions.** Add these to `~/.bashrc` so they load automatically:
+
+```bash
+echo 'export PATH=$PATH:"/c/Program Files/Git/bin"' >> ~/.bashrc
+echo 'export PATH=$PATH:"/c/Program Files/PostgreSQL/18/bin"' >> ~/.bashrc
+echo 'export PATH=$PATH:"/c/Python314"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+After editing `~/.bashrc`, run `source ~/.bashrc` to apply changes in the current session.
+
+**psql pipes output through Windows `more` pager** which is not available in Git Bash. Prefix all psql commands with `PAGER=''`:
+
+```bash
+# Wrong — fails with "'more' is not recognized"
+psql -U postgres -d finmetrics_db -c "\dt"
+
+# Correct
+PAGER='' psql -U postgres -d finmetrics_db -c "\dt"
+```
+
+**Run all development from `C:\finmetrics`**, not from any OneDrive-synced folder. OneDrive background sync causes file locking during pipeline writes. Use Git + GitHub for backup instead.
+
+**Paste in Git Bash** — use right-click → Paste. Ctrl+V does not work.
 
 ---
 
@@ -148,6 +185,9 @@ LIMIT 20;
 | Revenue resolves to NULL | Company uses non-standard tag | Run diagnose, add tag to tag_mappings |
 | TTM flagged INCOMPLETE | Fewer than 4 quarters available | Expected for new companies — resolves over time |
 | FX rate missing | ECB/Fed rate not yet loaded | Run `python scripts/fetch_fx_rates.py` |
+| psql: 'more' not recognized | Windows Git Bash pager issue | Prefix all psql commands with `PAGER=''` |
+| python: command not found | Python not on Git Bash PATH | Run `source ~/.bashrc` or add Python to PATH in ~/.bashrc |
+| git: command not found | Git not on Git Bash PATH | Run `source ~/.bashrc` or add Git to PATH in ~/.bashrc |
 
 ---
 
